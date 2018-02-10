@@ -36,11 +36,14 @@ public class UIBuildingUpgrade : MonoBehaviour
         if (viewEvent == null)
             return;
 
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
         viewEvent.Invoke();
     }
 
     public void Build()
     {
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Upgrade);
+		
         int price = 1000 * (buildingManager.currentFloor + 1) * 3;
         if (PlayDataManager.Instance.EnoughGold(price))
         {
@@ -65,7 +68,8 @@ public class UIBuildingUpgrade : MonoBehaviour
     {
         if (hideEvent == null)
             return;
-
+		
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
         hideEvent.Invoke();
     }
 }

@@ -20,8 +20,6 @@ public class CoinManager : MonoBehaviour
 
     public int oldPirce = 0, currentPrice = 0;
 
-    PhotonView photonView;
-
     private void Awake()
     {
         if (_instance != null)
@@ -31,7 +29,6 @@ public class CoinManager : MonoBehaviour
         else
         {
             _instance = this;
-            photonView = PhotonView.Get(this);
             DontDestroyOnLoad(this.gameObject);
         }
     }
@@ -44,7 +41,7 @@ public class CoinManager : MonoBehaviour
         {
             PlayDataManager.Instance.AddGold(-coinPrice);
             PlayDataManager.Instance.AddCoin(coin);
-            SendCoinPrice(coinPrice + (int)Random.Range(coinPrice * 0.01f, coinPrice * 0.1f));
+            SendCoinPrice(coin, coinPrice, 1);
         }
         else
         {
@@ -60,7 +57,7 @@ public class CoinManager : MonoBehaviour
         {
             PlayDataManager.Instance.AddGold(coinPrice);
             PlayDataManager.Instance.AddCoin(-coin);
-            SendCoinPrice(coinPrice - (int)Random.Range(coinPrice * 0.01f, coinPrice * 0.1f));
+            SendCoinPrice(coin, coinPrice, -1);
         }
         else
         {
@@ -68,44 +65,31 @@ public class CoinManager : MonoBehaviour
         }
     }
 
-    public void SendCoinPrice(int _coinPrice)
+    public void SendCoinPrice(int _coin, int _coinPrice, int _work)
     {
-        print(_coinPrice);
-        photonView.RPC("OnCoinPrice", PhotonTargets.AllBuffered, _coinPrice);
+        NetworkManager.instance.SendCoinPrice(_coin, _coinPrice, _work);
     }
 
-    [PunRPC]
     public void OnCoinPrice(int _coinPrice)
     {
-        oldPirce = currentPrice;
-        currentPrice = _coinPrice;
-
         priceList.Add(_coinPrice);
 
         graphRenderer.priceList = priceList;
         graphRenderer.ChangeChart();
-
-        if (PhotonNetwork.isMasterClient)
-        {
-            //이벤트 실행
-            EventManager.Instance.MakeEvent();
-        }
     }
 
-    public void SendCoinPriceList(string _name)
+    public void OnChangePrice(int _oldPirce, int _currnetPirce)
     {
-        photonView.RPC("OnCoinPrice", PhotonTargets.OthersBuffered, (object)priceList, _name);
+        oldPirce = _oldPirce;
+        currentPrice = _currnetPirce;
     }
 
-    [PunRPC]
-    public void OnCoinPriceList(object _priceList, string _name)
+    public void OnCoinPriceList(List<int> _priceList)
     {
-        if (PhotonNetwork.isMasterClient)
-            return;
-
-        if (PlayDataManager.Instance.nickName == _name)
-            priceList = (List<int>)_priceList;
+        graphRenderer.priceList = priceList = _priceList;
+        graphRenderer.ChangeChart();
     }
+
 
     public int GetAllowBuyCoin()
     {

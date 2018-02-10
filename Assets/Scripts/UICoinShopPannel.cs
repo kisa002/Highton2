@@ -23,23 +23,27 @@ public class UICoinShopPannel : MonoBehaviour
 
     public void AddCoin(int _value)
     {
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
         coin += _value;
         coin = Mathf.Clamp(coin, 0, CoinManager.Instance.GetAllowBuyCoin());
     }
 
     public void SubCoin(int _value)
     {
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
         coin -= _value;
         coin = Mathf.Clamp(coin, 0, CoinManager.Instance.GetAllowBuyCoin());
     }
 
     public void Buy()
     {
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Buy);
         CoinManager.Instance.Buy(coin);
     }
 
     public void Sell()
     {
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Sell);
         CoinManager.Instance.Sell(coin);
     }
 }

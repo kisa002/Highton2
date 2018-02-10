@@ -59,6 +59,7 @@ public class UICoinShop : MonoBehaviour
 		//open buy pannel
         buyPannel.View();
 		viewBuyEvent.Invoke();
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
     }
 
     public void OnSellOpen()
@@ -66,6 +67,7 @@ public class UICoinShop : MonoBehaviour
         //open sell pannel
         sellPannel.View();
 		viewSellEvent.Invoke ();
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
     }
 
 	public void OnBuyHide()
@@ -73,6 +75,7 @@ public class UICoinShop : MonoBehaviour
 		//open buy pannel
 		buyPannel.View();
 		hideBuyEvent.Invoke();
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
 	}
 
 	public void OnSellHide()
@@ -80,6 +83,7 @@ public class UICoinShop : MonoBehaviour
 		//open sell pannel
 		sellPannel.View();
 		hideSellEvent.Invoke ();
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
 	}
 
 

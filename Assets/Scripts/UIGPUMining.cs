@@ -29,6 +29,7 @@ public class UIGPUMining : MonoBehaviour
 
     public void ShowGPUUpgrade()
     {
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
         UIInGame.Instance.gpuUpgrade.View();
     }
 }

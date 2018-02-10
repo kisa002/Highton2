@@ -15,6 +15,7 @@ public class UIMain : MonoBehaviour
 
     public void TouchtoStart()
     {
+		SoundManager.Instance.PlaySound (SoundManager.AudioType.Upgrade);
         textTouch.SetActive(false);
         touchButton.SetActive(false);
 
@@ -28,6 +29,9 @@ public class UIMain : MonoBehaviour
 
     public void LoadGame()
     {
+		SoundManager.Instance.BGM.clip = SoundManager.Instance.inGameBgmClip;
+		SoundManager.Instance.BGM.Play ();
+
         SceneManager.LoadScene("InGame");
     }
 

@@ -16,7 +16,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public List<CEvent> eventList;
+    public List<Event> eventList;
 
     public Canvas eventCanvas;
     public GameObject content;
