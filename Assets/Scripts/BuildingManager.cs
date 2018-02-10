@@ -17,11 +17,14 @@ public class BuildingManager : MonoBehaviour
     public GameObject building;
     public GameObject floor;
     public Sprite[] floorSprite = new Sprite[3];
+	public GameObject[] clouds = new GameObject[3];
 
     public int currentFloor;
 
     public List<BuildingType> buildingTypeList = new List<BuildingType>();
     public float floorHeight = 330f;
+
+	private List<Cloud> cloudList = new List<Cloud>();
 
     private void Awake()
     {
@@ -44,16 +47,17 @@ public class BuildingManager : MonoBehaviour
         {
 			BuildingType buildingType = (BuildingType)int.Parse(buildingTypeData[i]);
 
+			GameObject floorObj = Instantiate(floor, building.transform);
+			floorObj.transform.Translate(new Vector2(0, -600 + buildingTypeList.Count * floorHeight));
+
 			buildingTypeList.Add(buildingType);
 
-			GameObject floorObj = Instantiate(floor, building.transform);
-			floorObj.transform.Translate(new Vector2(0, buildingTypeList.Count * floorHeight));
 			floorObj.GetComponent<SpriteRenderer>().sprite = floorSprite[(int)buildingType];
 			currentFloor = buildingTypeList.Count;
         }
     }
 
-    public string BuildingTypeToString()
+    public string BuildingTypeToString() 
     {
         string data = "";
 
@@ -62,6 +66,12 @@ public class BuildingManager : MonoBehaviour
 
         return data;
     }
+
+	void Start()
+	{
+		StringToBuildingType (PlayDataManager.Instance.GetBuild ());
+		StartCoroutine (MakeCloud ());
+	}
 
     void Update()
     {
@@ -76,8 +86,22 @@ public class BuildingManager : MonoBehaviour
 
             transform.Translate(0, -touchDeltaPosition.y * 0.1f, 0);
             transform.position = new Vector2(0, Mathf.Clamp(transform.position.y, 0, buildingTypeList.Count * floorHeight));
+
+			for(int i = 0; i < cloudList.Count; i++)
+				cloudList[i].transform.Translate(0, -touchDeltaPosition.y * 0.1f, 0);
         }
     }
+
+	IEnumerator MakeCloud()
+	{
+		while (true) {
+			GameObject cloud = Instantiate (clouds [Random.Range (0, 3)], building.transform);
+			cloud.transform.position = new Vector2(950, Random.Range (300, 3500));
+			cloudList.Add (cloud.GetComponent<Cloud>());
+
+			yield return new WaitForSeconds (Random.Range (2.5f, 5.0f));
+		}
+	}
 
     public void MakeFloor()
     {
@@ -88,6 +112,7 @@ public class BuildingManager : MonoBehaviour
         buildingTypeList.Add((BuildingType)floorSpriteType);
         currentFloor = buildingTypeList.Count;
 
+		PlayDataManager.Instance.SaveBuild(BuildingTypeToString ());
         UIInGame.Instance.buildingUpgrade.UpdateFloor();
     }
 }

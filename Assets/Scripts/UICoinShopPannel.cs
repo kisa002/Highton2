@@ -14,13 +14,11 @@ public class UICoinShopPannel : MonoBehaviour
     public void View()
     {
         textCoin.text = textGold.text = coin.ToString();
-        gameObject.SetActive(true);
     }
 
     public void Hide()
     {
         coin = 0;
-        gameObject.SetActive(false);
     }
 
     public void AddCoin(int _value)

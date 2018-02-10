@@ -14,14 +14,18 @@ public class Animations : MonoBehaviour {
 		StartCoroutine(Tween.TweenTransform.LocalScale (transform, new Vector2(0, 0), 0.3f));
 	}
 
-	public void PlayTranslateAnimtion(Transform target, Transform end, float time)
+	public void PlayTranslateUpAnimtion(Transform target)
 	{
-		StartCoroutine(Tween.TweenTransform.TweenTrans (target, end, time));
+		StartCoroutine(Tween.TweenTransform.Position (target, new Vector3(-1080, -960, 0), 0.3f));
+	}
+
+	public void PlayTranslateDownAnimtion(Transform target)
+	{
+		StartCoroutine(Tween.TweenTransform.Position (target, new Vector3(-1080, -2080, 0), 0.3f));
 	}
 
 	public void PlayFadeInAnimtion(SpriteRenderer renderer, float end, float time)
 	{
-		print ("IN");
 		StartCoroutine(Tween2D.TweenSprite.TweenAlpha (renderer, 150 / 255.0f, 0.3f));
 	}
 	public void PlayFadeOutAnimtion(SpriteRenderer renderer, float end, float time)

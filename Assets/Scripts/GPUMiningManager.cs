@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GPUMiningManager : MonoBehaviour
 {
+    [SerializeField]
+    Sprite[] gpuSprite;
+
     private static GPUMiningManager _instance;
 
     public static GPUMiningManager Instance
@@ -42,10 +45,12 @@ public class GPUMiningManager : MonoBehaviour
 
     private void Init()
     {
-        gpuList.Add(new GPU { id = 0, name = "GTX 960", price = 0, perGetCoin = 0.01f });
-        gpuList.Add(new GPU { id = 1, name = "GTX 970", price = 500, perGetCoin = 0.02f });
-        gpuList.Add(new GPU { id = 2, name = "GTX 980", price = 2000, perGetCoin = 0.35f });
-        gpuList.Add(new GPU { id = 3, name = "GTX 980", price = 4500, perGetCoin = 0.5f });
+        gpuList.Add(new GPU { id = 0, name = "GPU TRASH", price = 0, perGetCoin = 0.01f, sprite=gpuSprite[0]} );
+        gpuList.Add(new GPU { id = 1, name = "GPU RADEON", price = 500, perGetCoin = 0.02f, sprite = gpuSprite[1] });
+        gpuList.Add(new GPU { id = 2, name = "GPU HOS", price = 1500, perGetCoin = 0.35f, sprite = gpuSprite[2] });
+        gpuList.Add(new GPU { id = 3, name = "GPU 1080", price = 3000, perGetCoin = 0.5f, sprite = gpuSprite[3] });
+        //gpuList.Add(new GPU { id = 4, name = "GTX 990", price = 4500, perGetCoin = 0.7f });
+        //gpuList.Add(new GPU { id = 5, name = "GTX 1000", price = 7200, perGetCoin = 1f });
     }
 
     public void SetGPU(GPU _gpu)

@@ -20,6 +20,8 @@ public class CoinManager : MonoBehaviour
 
     public int oldPirce = 0, currentPrice = 0;
 
+    PhotonView photonView;
+
     private void Awake()
     {
         if (_instance != null)
@@ -29,6 +31,7 @@ public class CoinManager : MonoBehaviour
         else
         {
             _instance = this;
+            photonView = PhotonView.Get(this);
             DontDestroyOnLoad(this.gameObject);
         }
     }
@@ -42,8 +45,6 @@ public class CoinManager : MonoBehaviour
             PlayDataManager.Instance.AddGold(-coinPrice);
             PlayDataManager.Instance.AddCoin(coin);
             SendCoinPrice(coinPrice + (int)Random.Range(coinPrice * 0.01f, coinPrice * 0.1f));
-            //이벤트 매니저 실행
-
         }
         else
         {
@@ -60,8 +61,6 @@ public class CoinManager : MonoBehaviour
             PlayDataManager.Instance.AddGold(coinPrice);
             PlayDataManager.Instance.AddCoin(-coin);
             SendCoinPrice(coinPrice - (int)Random.Range(coinPrice * 0.01f, coinPrice * 0.1f));
-            //이벤트 매니저 실행
-
         }
         else
         {
@@ -72,10 +71,10 @@ public class CoinManager : MonoBehaviour
     public void SendCoinPrice(int _coinPrice)
     {
         print(_coinPrice);
-        OnCoinPrice(_coinPrice);
+        photonView.RPC("OnCoinPrice", PhotonTargets.AllBuffered, _coinPrice);
     }
 
-    //[PunRPC]
+    [PunRPC]
     public void OnCoinPrice(int _coinPrice)
     {
         oldPirce = currentPrice;
@@ -85,10 +84,31 @@ public class CoinManager : MonoBehaviour
 
         graphRenderer.priceList = priceList;
         graphRenderer.ChangeChart();
-        //ism
+
+        if (PhotonNetwork.isMasterClient)
+        {
+            //이벤트 실행
+            EventManager.Instance.MakeEvent();
+        }
     }
 
-    public int GetAllowBuyCoin() {
+    public void SendCoinPriceList(string _name)
+    {
+        photonView.RPC("OnCoinPrice", PhotonTargets.OthersBuffered, (object)priceList, _name);
+    }
+
+    [PunRPC]
+    public void OnCoinPriceList(object _priceList, string _name)
+    {
+        if (PhotonNetwork.isMasterClient)
+            return;
+
+        if (PlayDataManager.Instance.nickName == _name)
+            priceList = (List<int>)_priceList;
+    }
+
+    public int GetAllowBuyCoin()
+    {
         return PlayDataManager.Instance.GetGold() / currentPrice;
     }
 

@@ -19,10 +19,7 @@ public class UIGPUUpgrade : MonoBehaviour
 
         textGPUPrice.text = GPUMiningManager.Instance.GetNextGPU().price.ToString() + " 골드";
 
-        if (PlayDataManager.Instance.EnoughGold(GPUMiningManager.Instance.GetNextGPU().price))
-            textCant.gameObject.SetActive(false);
-        else
-            textCant.gameObject.SetActive(true);
+        textCant.gameObject.SetActive(false);
 
         if (viewEvent == null)
             return;
@@ -40,6 +37,10 @@ public class UIGPUUpgrade : MonoBehaviour
             GPUMiningManager.Instance.SetGPU(GPUMiningManager.Instance.GetNextGPU());
 
             Hide();
+        }
+        else
+        {
+            textCant.gameObject.SetActive(true);
         }
     }
 

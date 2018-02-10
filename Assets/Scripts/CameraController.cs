@@ -24,9 +24,9 @@ public class CameraController : MonoBehaviour {
 		Direction swaipeDirection = Swipe ();
 
 		if (moveCoroutine == null) {
-			if (swaipeDirection == Direction.Left)
+			if (swaipeDirection == Direction.Left && (int)GameManager.instance.sceneFormat < 1)
 				GameManager.instance.sceneFormat++;
-			if (swaipeDirection == Direction.Right)
+			if (swaipeDirection == Direction.Right && (int)GameManager.instance.sceneFormat > -1)
 				GameManager.instance.sceneFormat--;
 
 			if (swaipeDirection == Direction.Left || swaipeDirection == Direction.Right) {

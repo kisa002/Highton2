@@ -44,6 +44,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 2743253593
+    locked: 0
+  - name: BackCloude
+    uniqueID: 2524771541
+    locked: 0
   - name: Building
     uniqueID: 2610864321
+    locked: 0
+  - name: FrontCloude
+    uniqueID: 620808019
+    locked: 0
+  - name: UI
+    uniqueID: 2661934687
     locked: 0

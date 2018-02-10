@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cloude : MonoBehaviour {
+public class Cloud : MonoBehaviour {
 
 	int speed;
 
 	void Start()
 	{
-		speed = Random.Range (50, 10);
+		speed = Random.Range (50, 100);
 	}
 
 	void Update () {
-		transform.Translate (Time.deltaTime * speed, 0, 0);
+		if (transform.position.x < -950)
+			Destroy (gameObject);
+		
+		if (transform.position.y < -1200)
+			transform.position = new Vector2 (transform.position.x, 3500);
+
+		transform.Translate (-Time.deltaTime * speed, 0, 0);
 	}
 }

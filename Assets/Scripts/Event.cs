@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Event {
+public class CEvent {
 
 	public enum EventType {
 		Up, 

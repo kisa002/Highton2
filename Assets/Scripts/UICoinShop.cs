@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UICoinShop : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class UICoinShop : MonoBehaviour
 
     public UICoinShopPannel buyPannel;
     public UICoinShopPannel sellPannel;
+
+	public UnityEvent viewBuyEvent, viewSellEvent, hideBuyEvent, hideSellEvent;
 
     private void Start()
     {
@@ -53,14 +56,31 @@ public class UICoinShop : MonoBehaviour
 
     public void OnBuyOpen()
     {
-        //open buy pannel
+		//open buy pannel
         buyPannel.View();
+		viewBuyEvent.Invoke();
     }
 
     public void OnSellOpen()
     {
         //open sell pannel
         sellPannel.View();
+		viewSellEvent.Invoke ();
     }
+
+	public void OnBuyHide()
+	{
+		//open buy pannel
+		buyPannel.View();
+		hideBuyEvent.Invoke();
+	}
+
+	public void OnSellHide()
+	{
+		//open sell pannel
+		sellPannel.View();
+		hideSellEvent.Invoke ();
+	}
+
 
 }
