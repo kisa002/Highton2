@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public static class T
+public static class Tween
 {
 	private static readonly AnimationCurve defaultCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 

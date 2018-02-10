@@ -2,66 +2,100 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingManager : MonoBehaviour {
-	enum BuildingType
-	{
-		White,
-		Blue,
-		Yellow
-	}
+public class BuildingManager : MonoBehaviour
+{
+    private static BuildingManager _instance;
 
-	List<BuildingType> buildingTypeList = new List<BuildingType>();
+    public static BuildingManager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
 
-	public GameObject building;
-	public GameObject floor;
-	public Sprite[] floorSprite = new Sprite[3];
+    public GameObject building;
+    public GameObject floor;
+    public Sprite[] floorSprite = new Sprite[3];
 
-	public float floorHeight = 2.2f;
+    public int currentFloor;
 
-	public void StringToBuildingType(string data)
-	{
-		buildingTypeList.Clear ();
-		string[] buildingTypeData = data.Split ('|');
-		for (int i = 0; i < buildingTypeData.Length - 1; i++) {
-			print ((BuildingType)int.Parse (buildingTypeData [i]));
-			buildingTypeList.Add ((BuildingType)int.Parse(buildingTypeData [i]));
-		}
-	}
+    public List<BuildingType> buildingTypeList = new List<BuildingType>();
+    public float floorHeight = 330f;
 
-	public string BuildingTypeToString()
-	{
-		string data = "";
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 
-		for(int i = 0; i < buildingTypeList.Count; i++)
-			data += ((int)buildingTypeList[i]).ToString() + "|";
-		
-		return data;
-	}
+    public void StringToBuildingType(string data)
+    {
+        buildingTypeList.Clear();
+        string[] buildingTypeData = data.Split('|');
+        for (int i = 0; i < buildingTypeData.Length - 1; i++)
+        {
+			BuildingType buildingType = (BuildingType)int.Parse(buildingTypeData[i]);
 
-	public void MakeFloor()
-	{
-		int floorSpriteType = Random.Range (0, 3);
-		GameObject floorObj = Instantiate (floor, building.transform);
-		floorObj.transform.Translate (new Vector2 (0, buildingTypeList.Count * floorHeight));
-		floorObj.GetComponent<SpriteRenderer> ().sprite = floorSprite [floorSpriteType];
-		buildingTypeList.Add ((BuildingType)floorSpriteType);
-	}
+			buildingTypeList.Add(buildingType);
 
-	void Update () 
-	{
-		MoveBuilding ();
-		if (Input.GetKeyDown (KeyCode.Space))
-			MakeFloor ();
-	}
+			GameObject floorObj = Instantiate(floor, building.transform);
+			floorObj.transform.Translate(new Vector2(0, buildingTypeList.Count * floorHeight));
+			floorObj.GetComponent<SpriteRenderer>().sprite = floorSprite[(int)buildingType];
+			currentFloor = buildingTypeList.Count;
+        }
+    }
 
-	void MoveBuilding()
-	{
-		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
-		{
-			Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+    public string BuildingTypeToString()
+    {
+        string data = "";
 
-			transform.Translate(0, -touchDeltaPosition.y * 0.1f, 0);
-			transform.position = new Vector2(0, Mathf.Clamp (transform.position.y, 0, buildingTypeList.Count * floorHeight));
-		}
-	}
+        for (int i = 0; i < buildingTypeList.Count; i++)
+            data += ((int)buildingTypeList[i]).ToString() + "|";
+
+        return data;
+    }
+
+    void Update()
+    {
+        MoveBuilding();
+    }
+
+    void MoveBuilding()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+            Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+
+            transform.Translate(0, -touchDeltaPosition.y * 0.1f, 0);
+            transform.position = new Vector2(0, Mathf.Clamp(transform.position.y, 0, buildingTypeList.Count * floorHeight));
+        }
+    }
+
+    public void MakeFloor()
+    {
+        int floorSpriteType = Random.Range(0, 3);
+        GameObject floorObj = Instantiate(floor, building.transform);
+        floorObj.transform.Translate(new Vector2(0, buildingTypeList.Count * floorHeight));
+        floorObj.GetComponent<SpriteRenderer>().sprite = floorSprite[floorSpriteType];
+        buildingTypeList.Add((BuildingType)floorSpriteType);
+        currentFloor = buildingTypeList.Count;
+
+        UIInGame.Instance.buildingUpgrade.UpdateFloor();
+    }
+}
+
+[System.Serializable]
+public enum BuildingType
+{
+    White,
+    Blue,
+    Yellow
 }

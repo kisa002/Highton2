@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UICoinShop : MonoBehaviour
 {
-    public Text currentTrade;
+    public Text textCurrentTrade;
 
     public RectTransform scrollView;
     public GameObject listSlotprefab;
@@ -13,13 +13,21 @@ public class UICoinShop : MonoBehaviour
     public List<string> tradeRecord;
     public List<UITradeRecordSlot> slotList;
 
+    public UICoinShopPannel buyPannel;
+    public UICoinShopPannel sellPannel;
+
+    private void Start()
+    {
+        UpdateListView();
+    }
+
     public void UpdateListView()
     {
         for (int i = 0; i < tradeRecord.Count; ++i)
         {
             UITradeRecordSlot slot;
 
-            if (i > tradeRecord.Count - 1)
+            if (i > slotList.Count - 1)
             {
                 GameObject g = Instantiate(listSlotprefab, scrollView);
                 slot = g.GetComponent<UITradeRecordSlot>();
@@ -29,7 +37,6 @@ public class UICoinShop : MonoBehaviour
             {
                 slot = slotList[i];
             }
-
             slot.SetContent(tradeRecord[i]);
         }
     }
@@ -41,14 +48,19 @@ public class UICoinShop : MonoBehaviour
 
     public void SetCurrentTrade(string _tradeRecord)
     {
-        currentTrade.text = _tradeRecord;
+        textCurrentTrade.text = _tradeRecord;
     }
 
-    public void OnBuyOpen() {
+    public void OnBuyOpen()
+    {
         //open buy pannel
+        buyPannel.View();
     }
 
-    public void OnSellOpen() {
+    public void OnSellOpen()
+    {
         //open sell pannel
+        sellPannel.View();
     }
+
 }

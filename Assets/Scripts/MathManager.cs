@@ -18,8 +18,8 @@ public class MathManager : MonoBehaviour
     {
         RandomMath();
 
-        Debug.Log(GetFormulaMath());
-        Debug.Log(GetResult());
+        //Debug.Log(GetFormulaMath());
+        //Debug.Log(GetResult());
     }
 
     public void RandomMath()

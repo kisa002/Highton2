@@ -86,7 +86,10 @@ public class CoinManager : MonoBehaviour
         graphRenderer.priceList = priceList;
         graphRenderer.ChangeChart();
         //ism
+    }
 
+    public int GetAllowBuyCoin() {
+        return PlayDataManager.Instance.GetGold() / currentPrice;
     }
 
     public int GetCoinPriceDiffrent()

@@ -84,19 +84,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Animations.cs" />
     <Compile Include="Assets\Scripts\Bill.cs" />
     <Compile Include="Assets\Scripts\BuildingManager.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Cloud.cs" />
     <Compile Include="Assets\Scripts\CoinManager.cs" />
     <Compile Include="Assets\Scripts\Event.cs" />
     <Compile Include="Assets\Scripts\EventManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GPU.cs" />
+    <Compile Include="Assets\Scripts\GPUMiningManager.cs" />
     <Compile Include="Assets\Scripts\GraphRenderer.cs" />
     <Compile Include="Assets\Scripts\MathManager.cs" />
     <Compile Include="Assets\Scripts\PlayDataManager.cs" />
     <Compile Include="Assets\Scripts\Tween.cs" />
+    <Compile Include="Assets\Scripts\UIBuildingUpgrade.cs" />
     <Compile Include="Assets\Scripts\UICoinShop.cs" />
-    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\UICoinShopPannel.cs" />
+    <Compile Include="Assets\Scripts\UIGPUMining.cs" />
+    <Compile Include="Assets\Scripts\UIGPUUpgrade.cs" />
+    <Compile Include="Assets\Scripts\UIHeader.cs" />
+    <Compile Include="Assets\Scripts\UIInGame.cs" />
+    <Compile Include="Assets\Scripts\UIMain.cs" />
     <Compile Include="Assets\Scripts\UITradeRecordSlot.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

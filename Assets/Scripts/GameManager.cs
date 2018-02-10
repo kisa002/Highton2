@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
-	public static GameManager instance = null;            
+public class GameManager : MonoBehaviour
+{
+    public static GameManager instance = null;
 
-	public enum SceneFormat {
-		GraphScene = -1,
-		BuildingScene = 0,
-		MiningScene = 1
-	}
-	public SceneFormat sceneFormat;
+    public enum SceneFormat
+    {
+        GraphScene = -1,
+        BuildingScene = 0,
+        MiningScene = 1
+    }
+    public SceneFormat sceneFormat;
 
-	void Awake()
-	{
-		if (instance == null)
-			instance = this;
+    public UIInGame ui;
 
-		else if (instance != this)
-			Destroy(gameObject);    
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
 
-		DontDestroyOnLoad(gameObject);
-	}
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
 }

@@ -16,6 +16,7 @@ public class PlayDataManager : MonoBehaviour
 
     public int gold;
     public int coin;
+    public string nickName;
 
     private void Awake()
     {
@@ -32,12 +33,25 @@ public class PlayDataManager : MonoBehaviour
 
     private void Start()
     {
-        
+        LoadData();
     }
 
-    public void LoadData() {
-        gold = PlayerPrefs.GetInt("Gold", 0);
+    public void LoadData()
+    {
+        gold = PlayerPrefs.GetInt("Gold", 1000);
         coin = PlayerPrefs.GetInt("Coin", 0);
+        nickName = PlayerPrefs.GetString("NickName", "");
+    }
+
+    public void SetNickName(string _nickName)
+    {
+        nickName = _nickName;
+        PlayerPrefs.SetString("NickName", nickName);
+    }
+
+    public string GetNickName()
+    {
+        return nickName;
     }
 
     public int GetGold()
@@ -90,6 +104,15 @@ public class PlayDataManager : MonoBehaviour
         SetCoin(coin + _coin);
     }
 
+    public string GetBuild()
+    {
+        return PlayerPrefs.GetString("Building", "");
+    }
+
+    public void SaveBuild(string _data)
+    {
+        PlayerPrefs.SetString("Building", _data);
+    }
 
 
 }

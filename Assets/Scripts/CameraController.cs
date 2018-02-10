@@ -21,18 +21,16 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void Update () {
-		Direction swaipeDirection = Direction.None;
-		if(!EventSystem.current.IsPointerOverGameObject())
-			swaipeDirection = Swipe ();
+		Direction swaipeDirection = Swipe ();
 
 		if (moveCoroutine == null) {
 			if (swaipeDirection == Direction.Left)
-				GameManager.instance.sceneFormat--;
-			if (swaipeDirection == Direction.Right)
 				GameManager.instance.sceneFormat++;
+			if (swaipeDirection == Direction.Right)
+				GameManager.instance.sceneFormat--;
 
 			if (swaipeDirection == Direction.Left || swaipeDirection == Direction.Right) {
-				Vector3 targetPos = new Vector3 ((int)GameManager.instance.sceneFormat * 5.68f, 0, -10);
+				Vector3 targetPos = new Vector3 ((int)GameManager.instance.sceneFormat * 1080f, 0, -10);
 
 				moveCoroutine = StartCoroutine (MoveCamera (targetPos, swaipeDirection));
 			}
@@ -41,9 +39,9 @@ public class CameraController : MonoBehaviour {
 
 	IEnumerator MoveCamera(Vector3 targetPos, Direction direction)
 	{
-		while(Vector3.SqrMagnitude(transform.position - targetPos) > 0.05f)
+		while(Vector3.SqrMagnitude(transform.position - targetPos) > 0.01f)
 		{
-			transform.position = Vector3.Lerp(transform.position, targetPos,Time.deltaTime * 6);
+			transform.position = Vector3.Lerp(transform.position, targetPos,Time.deltaTime * 8);
 
 			yield return null;
 		}

@@ -7,7 +7,9 @@ public class GraphRenderer : MonoBehaviour
     public int minPrice, maxPrice; // Y
     public int minDate, maxDate; // X
 
-    public Vector2 startPos, rangePos; // VECTOR 
+    public Vector2 startPos = new Vector2(0.25f, 0.3f), rangePos = new Vector2(5.7f, 2); // VECTOR 
+
+    public GameObject coinPrefab;
 
     public List<Transform> nodeList;
     public List<int> priceList;
@@ -37,10 +39,11 @@ public class GraphRenderer : MonoBehaviour
             float perNodeX = rangePos.x / priceList.Count;
             float perNodeY = rangePos.y / maxPrice / priceList.Count;
 
-            print("PerNode x  = " + perNodeX + " | " + "PerNode y  = " + perNodeY);
             if (i > nodeList.Count - 1)
             {
-                nodeList.Add(Instantiate(new GameObject("Graph Node" + i), this.transform).transform);
+                GameObject g = Instantiate(coinPrefab, transform);
+                g.name = "Graph Node" + i;
+                nodeList.Add(g.transform);
             }
 
             nodeList[i].position = new Vector3(transform.position.x + startPos.x + i * perNodeX, transform.position.y + startPos.y + priceList[i] * perNodeY * 10, 0);

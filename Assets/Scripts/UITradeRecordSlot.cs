@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class UITradeRecordSlot : MonoBehaviour
 {
-
-    public Text content;
+	public Text textContent;
 
     public void SetContent(string _content)
     {
-        content.text = _content;
+        textContent.text = _content;
     }
+
 
 }
