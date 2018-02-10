@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour {
 
     [SerializeField]
-    GameObject panelRegister, panelEvent;
+    GameObject panelRegister, panelEvent, panelBuildingUpgrade;
 
     [SerializeField]
-    Text textGold, textCoin, textEventTitle, textEventContent, textEventResult;
+    Text textGold, textCoin, textEventTitle, textEventContent, textEventResult, textRequireGold, textCurrentFloor, textNextFloor, textCantBuy;
 
     PlayDataManager playDataManager;
 
@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour {
         playDataManager = PlayDataManager.Instance;
 
         ShowEvent("테스트 이벤트", "스텔라 떡락 실화냐고\n제발 1000원까지만이라도 올라줘요...", "지금 스텔라 -70%인가 ㅎㅎㅎ");
+        ShowBuildingUpgrade(1000, 0);
 	}
 	
 	// Update is called once per frame
@@ -57,5 +58,24 @@ public class UIManager : MonoBehaviour {
     public void CloseEvent()
     {
         panelEvent.SetActive(false);
+    }
+
+    public void ShowBuildingUpgrade(int requireGold, int floor)
+    {
+        panelBuildingUpgrade.SetActive(true);
+
+        if (playDataManager.GetGold() < requireGold)
+            textCantBuy.gameObject.SetActive(true);
+        else
+            textCantBuy.gameObject.SetActive(false);
+
+        textRequireGold.text = requireGold + " 골드";
+        textCurrentFloor.text = floor.ToString();
+        textNextFloor.text = (floor + 1).ToString();
+    }
+
+    public void CloseBuildingUpgrade()
+    {
+        panelBuildingUpgrade.SetActive(false);
     }
 }

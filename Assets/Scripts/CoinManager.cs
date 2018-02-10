@@ -85,6 +85,8 @@ public class CoinManager : MonoBehaviour
 
         graphRenderer.priceList = priceList;
         graphRenderer.ChangeChart();
+        //ism
+
     }
 
     public int GetCoinPriceDiffrent()
