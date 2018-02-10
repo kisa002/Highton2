@@ -7,20 +7,27 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour {
 
     [SerializeField]
-    GameObject panelRegister, panelEvent, panelBuildingUpgrade, panelMining;
+    GameObject panelRegister, panelEvent, panelBuildingUpgrade, panelMining, panelGPUUpgrade;
 
     [SerializeField]
-    Text textGold, textCoin, textEventTitle, textEventContent, textEventResult, textBuildingPrice, textCurrentFloor, textNextFloor, textBuildingCant, textGPUName, textSecGold, textGPUPrice;
+    Button buttongGPUUpgrade;
+
+    [SerializeField]
+    Image imageGPU;
+
+    [SerializeField]
+    Text textGold, textCoin, textEventTitle, textEventContent, textEventResult, textBuildingPrice, textCurrentFloor, textNextFloor, textBuildingCant, textGPUName, textSecGold, textGPUPrice, textCurrentGPU, textNextGPU;
 
     PlayDataManager playDataManager;
 
 	// Use this for initialization
 	void Start () {
         playDataManager = PlayDataManager.Instance;
+        
 
         //ShowEvent("테스트 이벤트", "스텔라 떡락 실화냐고\n제발 1000원까지만이라도 올라줘요...", "지금 스텔라 -70%인가 ㅎㅎㅎ");
         //ShowBuildingUpgrade(1000, 0);
-        //ShowMining("기모띠", 1000, 1);
+        ShowMining("GTX 100", 1000, 1);
 	}
 	
 	// Update is called once per frame
@@ -93,8 +100,22 @@ public class UIManager : MonoBehaviour {
         panelMining.SetActive(false);
     }
 
-    public void UpgradeGPU(int level, int gpuPrice)
+    public void ShowUpgradeGPU()
     {
+        //이 부분은 나중에 PlayDataManager에서 가져오는걸로
+        int gpuPrice = 5000;
+        int level = 1000;
 
+        panelGPUUpgrade.SetActive(true);
+
+        textCurrentGPU.text = "GTX " + level;
+        textNextGPU.text = "GTX " + (level + 10);
+
+        textGPUPrice.text = gpuPrice.ToString() + " 골드";
+    }
+
+    public void CloseUpgradeGPU()
+    {
+        panelGPUUpgrade.SetActive(false);
     }
 }
