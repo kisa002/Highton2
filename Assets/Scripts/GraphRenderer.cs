@@ -21,8 +21,12 @@ public class GraphRenderer : MonoBehaviour
 
     private void Start()
     {
-        SetMinMaxPrice();
-        InitGraph();
+        ChangeChart();
+    }
+
+    private void Update()
+    {
+        ChangeChart();
     }
 
     void InitGraph()

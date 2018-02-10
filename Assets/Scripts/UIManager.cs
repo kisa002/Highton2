@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour {
 
     [SerializeField]
-    GameObject panelRegister, panelEvent, panelBuildingUpgrade;
+    GameObject panelRegister, panelEvent, panelBuildingUpgrade, panelMining;
 
     [SerializeField]
-    Text textGold, textCoin, textEventTitle, textEventContent, textEventResult, textRequireGold, textCurrentFloor, textNextFloor, textCantBuy;
+    Text textGold, textCoin, textEventTitle, textEventContent, textEventResult, textBuildingPrice, textCurrentFloor, textNextFloor, textBuildingCant, textGPUName, textSecGold, textGPUPrice;
 
     PlayDataManager playDataManager;
 
@@ -18,8 +18,9 @@ public class UIManager : MonoBehaviour {
 	void Start () {
         playDataManager = PlayDataManager.Instance;
 
-        ShowEvent("테스트 이벤트", "스텔라 떡락 실화냐고\n제발 1000원까지만이라도 올라줘요...", "지금 스텔라 -70%인가 ㅎㅎㅎ");
-        ShowBuildingUpgrade(1000, 0);
+        //ShowEvent("테스트 이벤트", "스텔라 떡락 실화냐고\n제발 1000원까지만이라도 올라줘요...", "지금 스텔라 -70%인가 ㅎㅎㅎ");
+        //ShowBuildingUpgrade(1000, 0);
+        //ShowMining("기모띠", 1000, 1);
 	}
 	
 	// Update is called once per frame
@@ -65,11 +66,11 @@ public class UIManager : MonoBehaviour {
         panelBuildingUpgrade.SetActive(true);
 
         if (playDataManager.GetGold() < requireGold)
-            textCantBuy.gameObject.SetActive(true);
+            textBuildingCant.gameObject.SetActive(true);
         else
-            textCantBuy.gameObject.SetActive(false);
+            textBuildingCant.gameObject.SetActive(false);
 
-        textRequireGold.text = requireGold + " 골드";
+        textBuildingPrice.text = requireGold + " 골드";
         textCurrentFloor.text = floor.ToString();
         textNextFloor.text = (floor + 1).ToString();
     }
@@ -77,5 +78,23 @@ public class UIManager : MonoBehaviour {
     public void CloseBuildingUpgrade()
     {
         panelBuildingUpgrade.SetActive(false);
+    }
+
+    public void ShowMining(string gpuName, int secGold, int image)
+    {
+        panelMining.SetActive(true);
+
+        textGPUName.text = gpuName;
+        textSecGold.text = "초당 + " + secGold + "골드";
+    }
+
+    public void CloseMining()
+    {
+        panelMining.SetActive(false);
+    }
+
+    public void UpgradeGPU(int level, int gpuPrice)
+    {
+
     }
 }

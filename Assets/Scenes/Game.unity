@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 137714073}
   - component: {fileID: 137714072}
   m_Layer: 5
-  m_Name: TextRequireGold
+  m_Name: TextBuildingPrice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 334448851}
   - component: {fileID: 334448850}
   m_Layer: 5
-  m_Name: ButtonGPUUpgrade
+  m_Name: ButtonGPUManagement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 385782711}
   - component: {fileID: 385782710}
   m_Layer: 5
-  m_Name: TextRequireGold
+  m_Name: TextBuildingPriceTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -961,15 +961,19 @@ MonoBehaviour:
   panelRegister: {fileID: 0}
   panelEvent: {fileID: 1552902603}
   panelBuildingUpgrade: {fileID: 1735680067}
-  textGold: {fileID: 0}
-  textCoin: {fileID: 0}
+  panelMining: {fileID: 663094241}
+  textGold: {fileID: 1228779520}
+  textCoin: {fileID: 239507921}
   textEventTitle: {fileID: 2036833421}
   textEventContent: {fileID: 890285137}
   textEventResult: {fileID: 699203220}
-  textRequireGold: {fileID: 137714072}
+  textBuildingPrice: {fileID: 137714072}
   textCurrentFloor: {fileID: 1468924113}
   textNextFloor: {fileID: 1126409213}
-  textCantBuy: {fileID: 1083586527}
+  textBuildingCant: {fileID: 1083586527}
+  textGPUName: {fileID: 1420193765}
+  textSecGold: {fileID: 2124405326}
+  textGPUPrice: {fileID: 0}
 --- !u!1 &659073171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,7 +1197,7 @@ GameObject:
   - component: {fileID: 827417900}
   - component: {fileID: 827417899}
   m_Layer: 5
-  m_Name: ImageRequireGold
+  m_Name: ImageBuildingPrice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1337,7 +1341,7 @@ GameObject:
   - component: {fileID: 1083586528}
   - component: {fileID: 1083586527}
   m_Layer: 5
-  m_Name: TextCantBuy
+  m_Name: TextBuildingCant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1989,7 +1993,7 @@ GameObject:
   - component: {fileID: 1420193766}
   - component: {fileID: 1420193765}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TextCurrentGPUName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3019,7 +3023,7 @@ GameObject:
   - component: {fileID: 2028012630}
   - component: {fileID: 2028012629}
   m_Layer: 5
-  m_Name: ImageRequireGoldTop
+  m_Name: ImageBuildingPriceTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3236,7 +3240,7 @@ GameObject:
   - component: {fileID: 2124405327}
   - component: {fileID: 2124405326}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TextCurrentSecGold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
