@@ -36,12 +36,14 @@ public class CoinManager : MonoBehaviour
     //구매
     public void Buy(int coin)
     {
-        int coinPrice = coin * currentPrice;
+        int price = currentPrice;
+        int coinPrice = coin * price;
         if (PlayDataManager.Instance.EnoughGold(coinPrice))
         {
             PlayDataManager.Instance.AddGold(-coinPrice);
             PlayDataManager.Instance.AddCoin(coin);
-            SendCoinPrice(coin, coinPrice, 1);
+            UIInGame.Instance.coinShop.AddTradeRecord(coin + "코인을 " + price + "골드에 구입");
+            SendCoinPrice(coin, price, 1);
         }
         else
         {
@@ -52,12 +54,14 @@ public class CoinManager : MonoBehaviour
     //판매
     public void Sell(int coin)
     {
-        int coinPrice = coin * currentPrice;
+        int price = currentPrice;
+        int coinPrice = coin * price;
         if (PlayDataManager.Instance.EnoughCoin(coin))
         {
             PlayDataManager.Instance.AddGold(coinPrice);
             PlayDataManager.Instance.AddCoin(-coin);
-            SendCoinPrice(coin, coinPrice, -1);
+            UIInGame.Instance.coinShop.AddTradeRecord(coin + "코인을 " + price + "골드에 판매");
+            SendCoinPrice(coin, price, -1);
         }
         else
         {
@@ -74,6 +78,9 @@ public class CoinManager : MonoBehaviour
     {
         priceList.Add(_coinPrice);
 
+        if (priceList.Count > 10)
+            priceList.RemoveAt(0);
+
         graphRenderer.priceList = priceList;
         graphRenderer.ChangeChart();
     }
@@ -89,7 +96,6 @@ public class CoinManager : MonoBehaviour
         graphRenderer.priceList = priceList = _priceList;
         graphRenderer.ChangeChart();
     }
-
 
     public int GetAllowBuyCoin()
     {

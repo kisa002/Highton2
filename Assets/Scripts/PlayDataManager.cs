@@ -64,6 +64,8 @@ public class PlayDataManager : MonoBehaviour
         gold = _gold;
         gold = Mathf.Clamp(gold, 0, 9999999);
         PlayerPrefs.SetInt("Gold", gold);
+
+        UIInGame.Instance.header.UpdateHeader();
     }
 
     public int GetCoin()
@@ -76,6 +78,8 @@ public class PlayDataManager : MonoBehaviour
         coin = _coin;
         coin = Mathf.Clamp(coin, 0, 9999999);
         PlayerPrefs.SetInt("Coin", coin);
+
+        UIInGame.Instance.header.UpdateHeader();
     }
 
     public bool EnoughGold(int _gold)
@@ -114,5 +118,24 @@ public class PlayDataManager : MonoBehaviour
         PlayerPrefs.SetString("Building", _data);
     }
 
+    public string GetTradeRecord()
+    {
+        return PlayerPrefs.GetString("TradeRecord", "");
+    }
+
+    public void SaveTradeRecord(string _data)
+    {
+        PlayerPrefs.SetString("TradeRecord", _data);
+    }
+
+    public int GetGPU()
+    {
+        return PlayerPrefs.GetInt("GPU", 0);
+    }
+
+    public void SaveGPU(int _id)
+    {
+        PlayerPrefs.SetInt("GPU", _id);
+    }
 
 }

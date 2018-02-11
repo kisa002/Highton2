@@ -143,7 +143,7 @@ public class MathManager : MonoBehaviour
             else
                 formula += numberList[i] + " " + type[typeList[i]] + " ";
 
-            Debug.Log(i);
+//            Debug.Log(i);
         }
 
         return formula;

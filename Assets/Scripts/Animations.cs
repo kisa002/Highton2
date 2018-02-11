@@ -24,6 +24,16 @@ public class Animations : MonoBehaviour {
 		StartCoroutine(Tween.TweenTransform.Position (target, new Vector3(-1080, -2080, 0), 0.3f));
 	}
 
+	public void PlayTranslateUpAnimtionCal(Transform target)
+	{
+		StartCoroutine(Tween.TweenTransform.Position (target, new Vector3(1080, 0, 0), 0.3f));
+	}
+
+	public void PlayTranslateDownAnimtionCal(Transform target)
+	{
+		StartCoroutine(Tween.TweenTransform.Position (target, new Vector3(1080, -1920, 0), 0.3f));
+	}
+
 	public void PlayFadeInAnimtion(SpriteRenderer renderer, float end, float time)
 	{
 		StartCoroutine(Tween2D.TweenSprite.TweenAlpha (renderer, 150 / 255.0f, 0.3f));

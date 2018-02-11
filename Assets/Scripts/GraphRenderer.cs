@@ -33,11 +33,16 @@ public class GraphRenderer : MonoBehaviour
 
     void InitGraph()
     {
+        if (priceList.Count < 2)
+            return;
+
         lineRenderer.positionCount = priceList.Count;
         for (int i = 0; i < priceList.Count; ++i)
         {
-            float perNodeX = rangePos.x / priceList.Count;
-            float perNodeY = rangePos.y / maxPrice / priceList.Count;
+            float perNodeX = (rangePos.x - startPos.x) / (priceList.Count - 1);
+            float perNodeY = (rangePos.y - startPos.y) / (maxPrice - minPrice);
+
+//            print(perNodeX + " / " + perNodeY);
 
             if (i > nodeList.Count - 1)
             {
@@ -46,13 +51,17 @@ public class GraphRenderer : MonoBehaviour
                 nodeList.Add(g.transform);
             }
 
-            nodeList[i].position = new Vector3(transform.position.x + startPos.x + i * perNodeX, transform.position.y + startPos.y + priceList[i] * perNodeY * 10, 0);
+            nodeList[i].position = new Vector3(transform.position.x + startPos.x + i * perNodeX, transform.position.y + startPos.y + (priceList[i] - minPrice) * perNodeY, -10);
+            nodeList[i].GetComponent<UICoinHover>().price = priceList[i];
             lineRenderer.SetPosition(i, nodeList[i].position);
         }
     }
 
     void SetMinMaxPrice()
     {
+        if (priceList.Count < 2)
+            return;
+
         List<int> list = new List<int>(priceList);
         list.Sort();
         minPrice = list[0];

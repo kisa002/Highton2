@@ -26,6 +26,7 @@ public class NetworkManager : MonoBehaviour
         socket.On("CoinPrice", OnCoinPrice);
         socket.On("CoinPriceList", OnCoinPriceList);
         socket.On("PriceChange", OnChangePrice);
+        socket.On("Event", OnEvent);
     }
 
 
@@ -36,7 +37,7 @@ public class NetworkManager : MonoBehaviour
         json.AddField("Coin", _coin);
         json.AddField("Price", _coinPrice);
         json.AddField("Work", _work);
-        
+
         socket.Emit("CoinPrice", json);
     }
 
@@ -80,4 +81,14 @@ public class NetworkManager : MonoBehaviour
 
         CoinManager.Instance.OnChangePrice((int)json.GetField("OldPrice").f, (int)json.GetField("CurrentPrice").f);
     }
+
+    public void OnEvent(SocketIOEvent e)
+    {
+        JSONObject json = e.data;
+
+        int index = (int)json.GetField("Event").f;
+
+        EventManager.Instance.MakeEvent(index);
+    }
+
 }

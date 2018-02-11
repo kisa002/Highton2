@@ -11,9 +11,12 @@ public class UICoinShopPannel : MonoBehaviour
 
     public int coin;
 
+    public int work; // 1 = 구매, -1 = 판매
+
     public void View()
     {
-        textCoin.text = textGold.text = coin.ToString();
+        textCoin.text = coin + " 코인";
+        textGold.text = coin + " 골드";
     }
 
     public void Hide()
@@ -21,29 +24,56 @@ public class UICoinShopPannel : MonoBehaviour
         coin = 0;
     }
 
+    public void Update()
+    {
+        textGold.text = (coin * CoinManager.Instance.currentPrice) + " 골드";
+    }
+
     public void AddCoin(int _value)
     {
-		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
+        SoundManager.Instance.PlaySound(SoundManager.AudioType.Button2);
         coin += _value;
-        coin = Mathf.Clamp(coin, 0, CoinManager.Instance.GetAllowBuyCoin());
+
+        if (work > 0)
+            coin = Mathf.Clamp(coin, 0, CoinManager.Instance.GetAllowBuyCoin());
+        else
+        {
+            coin = Mathf.Clamp(coin, 0, PlayDataManager.Instance.GetCoin());
+        }
+
+        textCoin.text = coin + " 코인";
     }
 
     public void SubCoin(int _value)
     {
-		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
+        SoundManager.Instance.PlaySound(SoundManager.AudioType.Button2);
         coin -= _value;
-        coin = Mathf.Clamp(coin, 0, CoinManager.Instance.GetAllowBuyCoin());
+
+        if (work > 0)
+            coin = Mathf.Clamp(coin, 0, CoinManager.Instance.GetAllowBuyCoin());
+        else
+        {
+            coin = Mathf.Clamp(coin, 0, PlayDataManager.Instance.GetCoin());
+        }
+
+        textCoin.text = coin + " 코인";
     }
 
     public void Buy()
     {
-		SoundManager.Instance.PlaySound (SoundManager.AudioType.Buy);
+        if (coin < 1)
+            return;
+
+        SoundManager.Instance.PlaySound(SoundManager.AudioType.Buy);
         CoinManager.Instance.Buy(coin);
     }
 
     public void Sell()
     {
-		SoundManager.Instance.PlaySound (SoundManager.AudioType.Sell);
+        if (coin < 1)
+            return;
+
+        SoundManager.Instance.PlaySound(SoundManager.AudioType.Sell);
         CoinManager.Instance.Sell(coin);
     }
 }

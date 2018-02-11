@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
-public class UIMath : MonoBehaviour {
+public class UIMath : MonoBehaviour
+{
 
     [SerializeField]
     private Text textQuestion, textAnswer;
@@ -11,42 +13,36 @@ public class UIMath : MonoBehaviour {
     [SerializeField]
     private GameObject panelMath;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public UnityEvent viewEvent, hideEvent;
 
     public void ShowMath()
     {
-        panelMath.SetActive(true);
-        
-        MathManager.Instance.RandomMath();
+		MathManager.Instance.RandomMath();
 
         textQuestion.text = MathManager.Instance.GetFormulaMath();
         textAnswer.text = "";
+
+		viewEvent.Invoke ();
     }
 
     public void CloseMath()
     {
-        panelMath.SetActive(false);
+		hideEvent.Invoke ();
     }
 
     public void CheckMath()
     {
-        if(MathManager.Instance.GetResult() == int.Parse(MathManager.Instance.answer))
+        if (MathManager.Instance.GetResult() == int.Parse(MathManager.Instance.answer))
         {
             // 올바른 답
+            PlayDataManager.Instance.AddCoin(Mathf.FloorToInt(GPUMiningManager.Instance.gpu.perGetCoin * Random.Range(5, 10)) + 1);
             CloseMath();
         }
         else
         {
+            CloseMath();
             // 올바르지 않은 답
-            Debug.LogError("WRONG ANSWER - " + MathManager.Instance.GetResult());
+            //Debug.LogError("WRONG ANSWER = " + MathManager.Instance.GetResult());
         }
     }
 

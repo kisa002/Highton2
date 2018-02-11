@@ -23,7 +23,7 @@ public class UIGPUMining : MonoBehaviour
     public void SetGPU(GPU gpu)
     {
         textGPUName.text = gpu.name;
-        textSecGold.text = "초당 + " + gpu.perGetCoin + "골드";
+        textSecGold.text = "초당 + " + gpu.perGetCoin + "코인";
         imageGPU.sprite = gpu.sprite;
     }
 

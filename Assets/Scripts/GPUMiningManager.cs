@@ -40,16 +40,16 @@ public class GPUMiningManager : MonoBehaviour
     {
         Init();
 
-        SetGPU(gpuList[0]);
+        SetGPU(gpuList[PlayDataManager.Instance.GetGPU()]);
     }
 
     private void Init()
     {
-        gpuList.Add(new GPU { id = 0, name = "GPU TRASH", price = 0, perGetCoin = 0.01f, sprite=gpuSprite[0]} );
-        gpuList.Add(new GPU { id = 1, name = "GPU RADEON", price = 500, perGetCoin = 0.02f, sprite = gpuSprite[1] });
-        gpuList.Add(new GPU { id = 2, name = "GPU HOS", price = 1500, perGetCoin = 0.35f, sprite = gpuSprite[2] });
-        gpuList.Add(new GPU { id = 3, name = "GPU 1080", price = 3000, perGetCoin = 0.5f, sprite = gpuSprite[3] });
-        //gpuList.Add(new GPU { id = 4, name = "GTX 990", price = 4500, perGetCoin = 0.7f });
+        gpuList.Add(new GPU { id = 0, name = "GPU TRASH", price = 0, perGetCoin = 0.01f, sprite = gpuSprite[0] });
+        gpuList.Add(new GPU { id = 1, name = "GPU RADEON", price = 1500, perGetCoin = 0.02f, sprite = gpuSprite[1] });
+        gpuList.Add(new GPU { id = 2, name = "GPU HOS", price = 2500, perGetCoin = 0.035f, sprite = gpuSprite[2] });
+        gpuList.Add(new GPU { id = 3, name = "GPU 1080", price = 4000, perGetCoin = 0.05f, sprite = gpuSprite[3] });
+        gpuList.Add(new GPU { id = 4, name = "GTX Gold", price = 8500, perGetCoin = 0.07f, sprite = gpuSprite[4] });
         //gpuList.Add(new GPU { id = 5, name = "GTX 1000", price = 7200, perGetCoin = 1f });
     }
 
@@ -57,7 +57,7 @@ public class GPUMiningManager : MonoBehaviour
     {
         gpu = _gpu;
         UIInGame.Instance.gpuMining.SetGPU(gpu);
-
+        PlayDataManager.Instance.SaveGPU(gpu.id);
         if (mining != null)
             StopCoroutine(mining);
 
@@ -66,7 +66,10 @@ public class GPUMiningManager : MonoBehaviour
 
     public GPU GetNextGPU()
     {
-        return gpuList[gpu.id + 1];
+        if (gpu.id + 1 > gpuList.Count - 1)
+            return null;
+        else
+            return gpuList[gpu.id + 1];
     }
 
     Coroutine mining = null;

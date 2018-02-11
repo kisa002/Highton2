@@ -12,6 +12,9 @@ public class UIGPUUpgrade : MonoBehaviour
 
     public void View()
     {
+        if (GPUMiningManager.Instance.GetNextGPU() == null)
+            return;
+
         //이 부분은 나중에 PlayDataManager에서 가져오는걸로
 
         textCurrentGPU.text = GPUMiningManager.Instance.gpu.name;
@@ -29,7 +32,7 @@ public class UIGPUUpgrade : MonoBehaviour
 
     public void GPUUpgrade()
     {
-		SoundManager.Instance.PlaySound (SoundManager.AudioType.Upgrade);
+        SoundManager.Instance.PlaySound(SoundManager.AudioType.Upgrade);
 
         int price = GPUMiningManager.Instance.GetNextGPU().price;
 
@@ -51,7 +54,7 @@ public class UIGPUUpgrade : MonoBehaviour
         if (hideEvent == null)
             return;
 
-		SoundManager.Instance.PlaySound (SoundManager.AudioType.Button2);
+        SoundManager.Instance.PlaySound(SoundManager.AudioType.Button2);
 
         hideEvent.Invoke();
     }
